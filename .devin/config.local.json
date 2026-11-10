@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Exec(dir)",
+      "Exec(npm run)",
+      "Exec(curl)",
+      "Exec(netstat)",
+      "Exec(taskkill)",
+      "Exec(findstr)",
+      "Exec(npx tsx)",
+      "Exec(python)",
+      "Exec(find)"
+    ]
+  }
+}

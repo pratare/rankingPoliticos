@@ -1,0 +1,257 @@
+{
+  "info": {
+    "name": "APIs Externas - Parlamentares",
+    "description": "Collection para testar as APIs externas da Câmara dos Deputados e Senado Federal",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "camaraBaseUrl",
+      "value": "https://dadosabertos.camara.leg.br/api/v2",
+      "type": "string"
+    },
+    {
+      "key": "senadoBaseUrl",
+      "value": "https://legis.senado.leg.br/dadosabertos",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Câmara dos Deputados",
+      "item": [
+        {
+          "name": "Listar Deputados",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{camaraBaseUrl}}/deputados?itens=100&pagina=1&ordem=ASC&ordenarPor=nome",
+              "host": ["{{camaraBaseUrl}}"],
+              "path": ["deputados"],
+              "query": [
+                {
+                  "key": "itens",
+                  "value": "100",
+                  "description": "Itens por página"
+                },
+                {
+                  "key": "pagina",
+                  "value": "1",
+                  "description": "Número da página"
+                },
+                {
+                  "key": "ordem",
+                  "value": "ASC",
+                  "description": "Ordem (ASC ou DESC)"
+                },
+                {
+                  "key": "ordenarPor",
+                  "value": "nome",
+                  "description": "Campo para ordenação (nome, id, etc)"
+                }
+              ]
+            },
+            "description": "Lista todos os deputados da Câmara dos Deputados com paginação"
+          }
+        },
+        {
+          "name": "Buscar Deputado por ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{camaraBaseUrl}}/deputados/:id",
+              "host": ["{{camaraBaseUrl}}"],
+              "path": ["deputados", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "204534",
+                  "description": "ID do deputado na Câmara"
+                }
+              ]
+            },
+            "description": "Busca detalhes de um deputado específico"
+          }
+        },
+        {
+          "name": "Eventos por Deputado",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{camaraBaseUrl}}/deputados/:id/eventos?ano=2025&itens=100&ordem=ASC&ordenarPor=dataHoraInicio",
+              "host": ["{{camaraBaseUrl}}"],
+              "path": ["deputados", ":id", "eventos"],
+              "query": [
+                {
+                  "key": "ano",
+                  "value": "2025",
+                  "description": "Ano dos eventos"
+                },
+                {
+                  "key": "itens",
+                  "value": "100",
+                  "description": "Itens por página"
+                },
+                {
+                  "key": "ordem",
+                  "value": "ASC",
+                  "description": "Ordem (ASC ou DESC)"
+                },
+                {
+                  "key": "ordenarPor",
+                  "value": "dataHoraInicio",
+                  "description": "Campo para ordenação"
+                }
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "204534",
+                  "description": "ID do deputado na Câmara"
+                }
+              ]
+            },
+            "description": "Lista eventos de um deputado específico (usado para métrica de presença)"
+          }
+        },
+        {
+          "name": "Eventos por Deputado (sem filtro de ano)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{camaraBaseUrl}}/deputados/:id/eventos?itens=100&ordem=ASC&ordenarPor=dataHoraInicio",
+              "host": ["{{camaraBaseUrl}}"],
+              "path": ["deputados", ":id", "eventos"],
+              "query": [
+                {
+                  "key": "itens",
+                  "value": "100",
+                  "description": "Itens por página"
+                },
+                {
+                  "key": "ordem",
+                  "value": "ASC",
+                  "description": "Ordem (ASC ou DESC)"
+                },
+                {
+                  "key": "ordenarPor",
+                  "value": "dataHoraInicio",
+                  "description": "Campo para ordenação"
+                }
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "204534",
+                  "description": "ID do deputado na Câmara"
+                }
+              ]
+            },
+            "description": "Lista todos os eventos de um deputado (sem filtro de ano)"
+          }
+        },
+        {
+          "name": "Proposições por Deputado",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{camaraBaseUrl}}/deputados/:id/proposicoes?ano=2025&itens=100&ordem=ASC&ordenarPor=id",
+              "host": ["{{camaraBaseUrl}}"],
+              "path": ["deputados", ":id", "proposicoes"],
+              "query": [
+                {
+                  "key": "ano",
+                  "value": "2025",
+                  "description": "Ano das proposições"
+                },
+                {
+                  "key": "itens",
+                  "value": "100",
+                  "description": "Itens por página"
+                },
+                {
+                  "key": "ordem",
+                  "value": "ASC",
+                  "description": "Ordem (ASC ou DESC)"
+                },
+                {
+                  "key": "ordenarPor",
+                  "value": "id",
+                  "description": "Campo para ordenação"
+                }
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "204534",
+                  "description": "ID do deputado na Câmara"
+                }
+              ]
+            },
+            "description": "Lista proposições de um deputado específico (usado para métrica de produção legislativa)"
+          }
+        },
+        {
+          "name": "Proposições por Deputado (sem filtro de ano)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{camaraBaseUrl}}/deputados/:id/proposicoes?itens=100&ordem=ASC&ordenarPor=id",
+              "host": ["{{camaraBaseUrl}}"],
+              "path": ["deputados", ":id", "proposicoes"],
+              "query": [
+                {
+                  "key": "itens",
+                  "value": "100",
+                  "description": "Itens por página"
+                },
+                {
+                  "key": "ordem",
+                  "value": "ASC",
+                  "description": "Ordem (ASC ou DESC)"
+                },
+                {
+                  "key": "ordenarPor",
+                  "value": "id",
+                  "description": "Campo para ordenação"
+                }
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "204534",
+                  "description": "ID do deputado na Câmara"
+                }
+              ]
+            },
+            "description": "Lista todas as proposições de um deputado (sem filtro de ano)"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Senado Federal",
+      "item": [
+        {
+          "name": "Lista de Senadores",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{senadoBaseUrl}}/senador/lista/atual",
+              "host": ["{{senadoBaseUrl}}"],
+              "path": ["senador", "lista", "atual"]
+            },
+            "description": "Lista todos os senadores em exercício. Retorna XML ou JSON."
+          }
+        }
+      ]
+    }
+  ]
+}

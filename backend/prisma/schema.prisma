@@ -1,0 +1,88 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model Parlamentar {
+  id             String            @id @default(cuid())
+  nome           String
+  cargo          String
+  uf             String
+  partido        String?
+  fotoUrl        String?
+  perfilUrl      String?
+  ativo          Boolean           @default(true)
+  createdAt      DateTime          @default(now())
+  updatedAt      DateTime          @updatedAt
+  metricas       MetricasParlamentar[]
+  historicoNotas HistoricoNota[]
+  rankings       RankingGeral[]
+}
+
+model FonteDados {
+  id        String                 @id @default(cuid())
+  nome      String
+  url       String?
+  tipo      String
+  descricao String?
+  createdAt DateTime               @default(now())
+  updatedAt DateTime               @updatedAt
+  metricas  MetricasParlamentar[]
+  criterios CriterioAvaliacao[]    @relation("FontePrincipalCriterio")
+}
+
+model CriterioAvaliacao {
+  id               String                @id @default(cuid())
+  nome             String
+  codigo           String                @unique
+  descricao        String?
+  peso             Float                 @default(0)
+  ordem            Int                   @default(0)
+  fontePrincipalId String?
+  fontePrincipal   FonteDados?           @relation("FontePrincipalCriterio", fields: [fontePrincipalId], references: [id])
+  metricas         MetricasParlamentar[]
+  createdAt        DateTime              @default(now())
+  updatedAt        DateTime              @updatedAt
+}
+
+model MetricasParlamentar {
+  id             String               @id @default(cuid())
+  parlamentarId  String
+  criterioId     String
+  fonteDadoId    String?
+  valor          Float
+  nota           Float?
+  unidade        String?
+  observacao     String?
+  dataReferencia DateTime?
+  parlamentar    Parlamentar          @relation(fields: [parlamentarId], references: [id], onDelete: Cascade)
+  criterio       CriterioAvaliacao    @relation(fields: [criterioId], references: [id], onDelete: Cascade)
+  fonteDado      FonteDados?          @relation(fields: [fonteDadoId], references: [id])
+
+  @@unique([parlamentarId, criterioId, dataReferencia])
+}
+
+model HistoricoNota {
+  id            String      @id @default(cuid())
+  parlamentarId String
+  periodo       String
+  notaFinal     Float
+  detalhesJson  String?
+  parlamentar   Parlamentar @relation(fields: [parlamentarId], references: [id], onDelete: Cascade)
+
+  @@unique([parlamentarId, periodo])
+}
+
+model RankingGeral {
+  id            String      @id @default(cuid())
+  parlamentarId String
+  periodo       String
+  posicao       Int
+  notaFinal     Float
+  parlamentar   Parlamentar @relation(fields: [parlamentarId], references: [id], onDelete: Cascade)
+
+  @@unique([periodo, parlamentarId])
+}

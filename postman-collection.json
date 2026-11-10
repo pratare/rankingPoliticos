@@ -1,0 +1,472 @@
+{
+  "info": {
+    "name": "Ranking Parlamentares API",
+    "description": "Collection completa para testar as APIs do sistema de Ranking de Parlamentares",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Base",
+      "item": [
+        {
+          "name": "Health Check",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/health",
+              "host": ["{{baseUrl}}"],
+              "path": ["health"]
+            },
+            "description": "Verifica se a API está funcionando"
+          }
+        },
+        {
+          "name": "Hello World",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}",
+              "host": ["{{baseUrl}}"]
+            },
+            "description": "Endpoint básico de teste"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Parlamentares",
+      "item": [
+        {
+          "name": "Listar Parlamentares",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/parlamentares?search=&cargo=&uf=&partido=",
+              "host": ["{{baseUrl}}"],
+              "path": ["parlamentares"],
+              "query": [
+                {
+                  "key": "search",
+                  "value": "",
+                  "description": "Busca por nome, cargo, UF ou partido"
+                },
+                {
+                  "key": "cargo",
+                  "value": "",
+                  "description": "Filtro por cargo (deputado/senador)"
+                },
+                {
+                  "key": "uf",
+                  "value": "",
+                  "description": "Filtro por UF"
+                },
+                {
+                  "key": "partido",
+                  "value": "",
+                  "description": "Filtro por partido"
+                }
+              ]
+            },
+            "description": "Lista todos os parlamentares com filtros opcionais"
+          }
+        },
+        {
+          "name": "Buscar Parlamentar por ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/parlamentares/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["parlamentares", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "dep-204534",
+                  "description": "ID do parlamentar"
+                }
+              ]
+            },
+            "description": "Busca um parlamentar específico com métricas e histórico"
+          }
+        },
+        {
+          "name": "Criar Parlamentar",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"Nome do Parlamentar\",\n  \"cargo\": \"deputado\",\n  \"uf\": \"SP\",\n  \"partido\": \"PL\",\n  \"fotoUrl\": \"https://exemplo.com/foto.jpg\",\n  \"perfilUrl\": \"https://exemplo.com/perfil\",\n  \"ativo\": true\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/parlamentares",
+              "host": ["{{baseUrl}}"],
+              "path": ["parlamentares"]
+            },
+            "description": "Cria um novo parlamentar"
+          }
+        },
+        {
+          "name": "Atualizar Parlamentar",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"Nome Atualizado\",\n  \"cargo\": \"deputado\",\n  \"uf\": \"SP\",\n  \"partido\": \"PL\",\n  \"fotoUrl\": \"https://exemplo.com/foto.jpg\",\n  \"perfilUrl\": \"https://exemplo.com/perfil\",\n  \"ativo\": true\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/parlamentares/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["parlamentares", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "dep-204534",
+                  "description": "ID do parlamentar"
+                }
+              ]
+            },
+            "description": "Atualiza os dados de um parlamentar"
+          }
+        },
+        {
+          "name": "Deletar Parlamentar",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/parlamentares/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["parlamentares", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "dep-204534",
+                  "description": "ID do parlamentar"
+                }
+              ]
+            },
+            "description": "Remove um parlamentar do sistema"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Métricas",
+      "item": [
+        {
+          "name": "Listar Métricas",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/metricas",
+              "host": ["{{baseUrl}}"],
+              "path": ["metricas"]
+            },
+            "description": "Lista todas as métricas cadastradas"
+          }
+        },
+        {
+          "name": "Buscar Métrica por ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/metricas/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["metricas", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "1",
+                  "description": "ID da métrica"
+                }
+              ]
+            },
+            "description": "Busca uma métrica específica"
+          }
+        },
+        {
+          "name": "Criar Métrica",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"parlamentarId\": \"dep-204534\",\n  \"criterioId\": \"1\",\n  \"fonteDadoId\": \"fonte-sistema\",\n  \"valor\": 45,\n  \"nota\": 9.0,\n  \"unidade\": \"eventos\",\n  \"observacao\": \"45 eventos registrados em 2025\",\n  \"dataReferencia\": \"2025-01-01T00:00:00.000Z\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/metricas",
+              "host": ["{{baseUrl}}"],
+              "path": ["metricas"]
+            },
+            "description": "Cria uma nova métrica para um parlamentar"
+          }
+        },
+        {
+          "name": "Atualizar Métrica",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"parlamentarId\": \"dep-204534\",\n  \"criterioId\": \"1\",\n  \"fonteDadoId\": \"fonte-sistema\",\n  \"valor\": 50,\n  \"nota\": 10.0,\n  \"unidade\": \"eventos\",\n  \"observacao\": \"50 eventos registrados em 2025\",\n  \"dataReferencia\": \"2025-01-01T00:00:00.000Z\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/metricas/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["metricas", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "1",
+                  "description": "ID da métrica"
+                }
+              ]
+            },
+            "description": "Atualiza os dados de uma métrica"
+          }
+        },
+        {
+          "name": "Deletar Métrica",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/metricas/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["metricas", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "1",
+                  "description": "ID da métrica"
+                }
+              ]
+            },
+            "description": "Remove uma métrica do sistema"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Critérios",
+      "item": [
+        {
+          "name": "Listar Critérios",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/criterios",
+              "host": ["{{baseUrl}}"],
+              "path": ["criterios"]
+            },
+            "description": "Lista todos os critérios de avaliação"
+          }
+        },
+        {
+          "name": "Buscar Critério por ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/criterios/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["criterios", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "1",
+                  "description": "ID do critério"
+                }
+              ]
+            },
+            "description": "Busca um critério específico"
+          }
+        },
+        {
+          "name": "Criar Critério",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"Presença\",\n  \"codigo\": \"presenca\",\n  \"descricao\": \"Métrica de presença em sessões e eventos\",\n  \"peso\": 0.4,\n  \"ordem\": 1,\n  \"fontePrincipalId\": \"fonte-sistema\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/criterios",
+              "host": ["{{baseUrl}}"],
+              "path": ["criterios"]
+            },
+            "description": "Cria um novo critério de avaliação"
+          }
+        },
+        {
+          "name": "Atualizar Critério",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"Presença Atualizada\",\n  \"codigo\": \"presenca\",\n  \"descricao\": \"Métrica de presença em sessões e eventos\",\n  \"peso\": 0.5,\n  \"ordem\": 1,\n  \"fontePrincipalId\": \"fonte-sistema\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/criterios/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["criterios", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "1",
+                  "description": "ID do critério"
+                }
+              ]
+            },
+            "description": "Atualiza os dados de um critério"
+          }
+        },
+        {
+          "name": "Deletar Critério",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/criterios/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["criterios", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "1",
+                  "description": "ID do critério"
+                }
+              ]
+            },
+            "description": "Remove um critério do sistema"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Ranking",
+      "item": [
+        {
+          "name": "Listar Rankings",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/ranking?periodo=&cargo=&uf=&partido=",
+              "host": ["{{baseUrl}}"],
+              "path": ["ranking"],
+              "query": [
+                {
+                  "key": "periodo",
+                  "value": "",
+                  "description": "Filtro por período"
+                },
+                {
+                  "key": "cargo",
+                  "value": "",
+                  "description": "Filtro por cargo"
+                },
+                {
+                  "key": "uf",
+                  "value": "",
+                  "description": "Filtro por UF"
+                },
+                {
+                  "key": "partido",
+                  "value": "",
+                  "description": "Filtro por partido"
+                }
+              ]
+            },
+            "description": "Lista todos os rankings com filtros opcionais"
+          }
+        },
+        {
+          "name": "Buscar Ranking por Período",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/ranking/:periodo?cargo=&uf=&partido=",
+              "host": ["{{baseUrl}}"],
+              "path": ["ranking", ":periodo"],
+              "query": [
+                {
+                  "key": "cargo",
+                  "value": "",
+                  "description": "Filtro por cargo"
+                },
+                {
+                  "key": "uf",
+                  "value": "",
+                  "description": "Filtro por UF"
+                },
+                {
+                  "key": "partido",
+                  "value": "",
+                  "description": "Filtro por partido"
+                }
+              ],
+              "variable": [
+                {
+                  "key": "periodo",
+                  "value": "2025",
+                  "description": "Período do ranking"
+                }
+              ]
+            },
+            "description": "Busca ranking de um período específico. Se não encontrar pré-calculado, calcula dinamicamente."
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "component": "RankingTable",
+  "purpose": "Exibir a ordenação dos parlamentares por nota final e critérios principais.",
+  "columns": [
+    "Posição",
+    "Nome",
+    "Cargo",
+    "Estado",
+    "Partido",
+    "Nota final"
+  ],
+  "rows": [
+    {
+      "position": 1,
+      "name": "Parlamentar X",
+      "role": "Dep. Federal",
+      "state": "SP",
+      "party": "PSX",
+      "score": 8.7
+    },
+    {
+      "position": 2,
+      "name": "Parlamentar Y",
+      "role": "Senador",
+      "state": "RJ",
+      "party": "ABC",
+      "score": 8.4
+    },
+    {
+      "position": 3,
+      "name": "Parlamentar Z",
+      "role": "Dep. Federal",
+      "state": "MG",
+      "party": "XYZ",
+      "score": 8.1
+    }
+  ],
+  "visualRules": {
+    "topPosition": "destaque visual com cor primária",
+    "scoreFormat": "número com 1 decimal",
+    "hover": "elevar linha ao passar o mouse",
+    "mobile": "rolagem horizontal da tabela"
+  }
+}

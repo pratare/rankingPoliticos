@@ -1,0 +1,33 @@
+{
+  "component": "Header",
+  "purpose": "Navegação principal da interface e acesso às principais seções da aplicação.",
+  "layout": {
+    "type": "horizontal",
+    "align": "space-between",
+    "items": [
+      "brand",
+      "navigation",
+      "menuAction"
+    ]
+  },
+  "brand": {
+    "label": "Ranking Parlamentar",
+    "icon": "shield",
+    "link": "/home"
+  },
+  "navigation": [
+    { "label": "Ranking", "href": "/ranking" },
+    { "label": "Metodologia", "href": "/metodologia" },
+    { "label": "Comparar", "href": "/comparar" }
+  ],
+  "menuAction": {
+    "type": "button",
+    "variant": "ghost",
+    "label": "Menu",
+    "mobileOnly": true
+  },
+  "states": {
+    "desktop": "links visíveis",
+    "mobile": "menu recolhido em ícone"
+  }
+}

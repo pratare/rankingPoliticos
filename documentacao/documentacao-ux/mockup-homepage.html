@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ranking Parlamentar</title>
+    <style>
+      :root {
+        --bg-base: #f5f7fa;
+        --surface: #ffffff;
+        --surface-alt: #eef2f7;
+        --text-primary: #14213d;
+        --text-secondary: #4b5563;
+        --border: #d9e2ec;
+        --primary: #1d4ed8;
+        --primary-strong: #1e3a8a;
+        --success: #16a34a;
+        --warning: #f59e0b;
+        --danger: #dc2626;
+        --neutral: #6b7280;
+        --radius-sm: 8px;
+        --radius-md: 12px;
+        --radius-lg: 16px;
+        --shadow-sm: 0 1px 2px rgba(20,33,61,0.06);
+        --shadow-md: 0 6px 18px rgba(20,33,61,0.12);
+      }
+
+      * { box-sizing: border-box; }
+
+      body {
+        margin: 0;
+        font-family: Inter, Segoe UI, Arial, sans-serif;
+        background: var(--bg-base);
+        color: var(--text-primary);
+      }
+
+      a { text-decoration: none; }
+      button, input, select { font: inherit; }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 24px;
+      }
+
+      .app-header {
+        background: var(--surface);
+        border-bottom: 1px solid var(--border);
+        position: sticky;
+        top: 0;
+        z-index: 20;
+      }
+
+      .nav-bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 16px 0;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 700;
+      }
+
+      .brand-mark {
+        display: inline-flex;
+        width: 32px;
+        height: 32px;
+        align-items: center;
+        justify-content: center;
+        border-radius: 8px;
+        background: var(--primary);
+        color: #fff;
+        font-size: 0.9rem;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 24px;
+      }
+
+      .nav-links a {
+        color: var(--text-secondary);
+        font-weight: 500;
+      }
+
+      .menu-button, .primary-button, .secondary-button, .ghost-button {
+        cursor: pointer;
+        border-radius: 10px;
+        font-weight: 600;
+      }
+
+      .menu-button {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        padding: 10px 14px;
+        color: var(--text-primary);
+      }
+
+      .hero {
+        background: linear-gradient(180deg, #f8fbff 0%, var(--bg-base) 100%);
+        padding: 64px 0;
+      }
+
+      .hero-inner {
+        display: grid;
+        grid-template-columns: 1.5fr 0.8fr;
+        gap: 32px;
+        align-items: center;
+      }
+
+      .eyebrow {
+        display: inline-block;
+        color: var(--primary);
+        font-size: 12px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        margin-bottom: 16px;
+      }
+
+      h1 {
+        margin: 0 0 16px;
+        font-size: clamp(2rem, 3vw, 3.2rem);
+        line-height: 1.1;
+        color: var(--text-primary);
+      }
+
+      .hero-copy p {
+        margin: 0;
+        color: var(--text-secondary);
+        font-size: 1.05rem;
+        max-width: 600px;
+      }
+
+      .hero-actions {
+        display: flex;
+        gap: 16px;
+        margin-top: 24px;
+      }
+
+      .primary-button {
+        background: var(--primary);
+        border: none;
+        color: #fff;
+        padding: 12px 20px;
+      }
+
+      .secondary-button {
+        background: transparent;
+        border: 1px solid var(--border);
+        color: var(--text-primary);
+        padding: 12px 20px;
+      }
+
+      .hero-card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow-md);
+        padding: 28px 24px;
+        text-align: center;
+      }
+
+      .score-badge {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        background: rgba(22, 163, 74, 0.12);
+        color: var(--success);
+        font-size: 2.5rem;
+        font-weight: 700;
+      }
+
+      .hero-card p {
+        margin: 16px 0 0;
+        color: var(--text-secondary);
+      }
+
+      .filters-panel {
+        max-width: 1200px;
+        margin: -12px auto 0;
+        padding: 24px;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-md);
+        box-shadow: var(--shadow-sm);
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+      }
+
+      .filter-field {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        min-width: 180px;
+        flex: 1;
+      }
+
+      .filter-field.wide {
+        flex: 2;
+      }
+
+      .filter-field label {
+        font-size: 0.8rem;
+        color: var(--text-secondary);
+        font-weight: 600;
+      }
+
+      .filter-field select,
+      .filter-field input {
+        height: 44px;
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        background: var(--surface-alt);
+        padding: 0 12px;
+        color: var(--text-primary);
+      }
+
+      .compact {
+        align-self: end;
+        min-width: 120px;
+      }
+
+      .section-block {
+        max-width: 1200px;
+        margin: 32px auto 0;
+        padding: 0 24px;
+      }
+
+      .section-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 16px;
+      }
+
+      .section-header h2 {
+        margin: 0;
+        font-size: 1.75rem;
+      }
+
+      .ghost-button {
+        background: transparent;
+        border: 1px solid var(--border);
+        color: var(--text-primary);
+        padding: 10px 16px;
+      }
+
+      .table-wrap {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-md);
+        overflow-x: auto;
+        box-shadow: var(--shadow-sm);
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        min-width: 720px;
+      }
+
+      th, td {
+        padding: 16px 20px;
+        text-align: left;
+        border-bottom: 1px solid var(--border);
+      }
+
+      th {
+        background: var(--surface-alt);
+        color: var(--text-secondary);
+        text-transform: uppercase;
+        font-size: 0.78rem;
+        letter-spacing: 0.04em;
+      }
+
+      .top-row {
+        background: rgba(29, 78, 216, 0.04);
+      }
+
+      .score-pill {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 52px;
+        padding: 6px 10px;
+        border-radius: 999px;
+        background: rgba(22, 163, 74, 0.12);
+        color: var(--success);
+        font-weight: 700;
+      }
+
+      .criteria-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(220px, 1fr));
+        gap: 20px;
+      }
+
+      .criterion-card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-md);
+        padding: 18px;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        box-shadow: var(--shadow-sm);
+      }
+
+      .criterion-icon {
+        width: 42px;
+        height: 42px;
+        border-radius: 12px;
+        background: rgba(29, 78, 216, 0.12);
+        color: var(--primary);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+      }
+
+      .criterion-content h3 {
+        margin: 0 0 6px;
+        font-size: 1rem;
+      }
+
+      .criterion-content p {
+        margin: 0;
+        color: var(--text-secondary);
+        font-size: 0.85rem;
+      }
+
+      .criterion-score {
+        margin-left: auto;
+        font-weight: 700;
+        color: var(--success);
+      }
+
+      .methodology-box {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-lg);
+        padding: 24px;
+        box-shadow: var(--shadow-sm);
+      }
+
+      .methodology-box h3 {
+        margin-top: 0;
+        font-size: 1.5rem;
+      }
+
+      .methodology-list {
+        margin: 16px 0 0;
+        padding-left: 20px;
+        color: var(--text-secondary);
+        line-height: 1.7;
+      }
+
+      .app-footer {
+        margin-top: 48px;
+        background: var(--text-primary);
+        color: #fff;
+        padding: 32px 24px;
+      }
+
+      .footer-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(220px, 1fr));
+        gap: 24px;
+      }
+
+      .footer-grid h4 {
+        margin: 0 0 8px;
+      }
+
+      .footer-grid p {
+        margin: 0;
+        color: rgba(255,255,255,0.8);
+        line-height: 1.6;
+      }
+
+      @media (max-width: 900px) {
+        .hero-inner,
+        .criteria-grid,
+        .footer-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .nav-links {
+          display: none;
+        }
+      }
+
+      @media (max-width: 640px) {
+        .filters-panel {
+          flex-direction: column;
+        }
+
+        .filter-field,
+        .filter-field.wide {
+          width: 100%;
+          flex: 1 1 100%;
+        }
+
+        .hero-actions {
+          flex-direction: column;
+        }
+
+        .section-header {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 12px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="app-header">
+      <div class="container nav-bar">
+        <div class="brand">
+          <span class="brand-mark">R</span>
+          <span>Ranking Parlamentar</span>
+        </div>
+
+        <nav class="nav-links" aria-label="Navegação principal">
+          <a href="#ranking">Ranking</a>
+          <a href="#metodologia">Metodologia</a>
+          <a href="#comparar">Comparar</a>
+        </nav>
+
+        <button class="menu-button">Menu</button>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="container hero-inner">
+          <div class="hero-copy">
+            <span class="eyebrow">Transparência pública</span>
+            <h1>Ranking objetivo de deputados e senadores</h1>
+            <p>
+              Avaliação baseada em critérios públicos, comparáveis e explicáveis.
+            </p>
+
+            <div class="hero-actions">
+              <button class="primary-button">Ver ranking</button>
+              <button class="secondary-button">Como a nota é calculada?</button>
+            </div>
+          </div>
+
+          <div class="hero-card">
+            <div class="score-badge">8,7</div>
+            <p>Nota média da base atual</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="container">
+        <div class="filters-panel" aria-label="Filtros de busca">
+          <div class="filter-field">
+            <label for="cargo">Cargo</label>
+            <select id="cargo">
+              <option>Todos</option>
+              <option>Deputado</option>
+              <option>Senador</option>
+            </select>
+          </div>
+
+          <div class="filter-field">
+            <label for="estado">Estado</label>
+            <select id="estado">
+              <option>Todos</option>
+              <option>SP</option>
+              <option>RJ</option>
+              <option>MG</option>
+            </select>
+          </div>
+
+          <div class="filter-field">
+            <label for="partido">Partido</label>
+            <select id="partido">
+              <option>Todos</option>
+              <option>PSX</option>
+              <option>ABC</option>
+              <option>XYZ</option>
+            </select>
+          </div>
+
+          <div class="filter-field wide">
+            <label for="buscar">Buscar parlamentar</label>
+            <input id="buscar" type="text" placeholder="Nome do parlamentar" />
+          </div>
+
+          <button class="primary-button compact">Aplicar</button>
+        </div>
+      </section>
+
+      <section class="section-block" id="ranking">
+        <div class="section-header">
+          <h2>Ranking geral</h2>
+          <button class="ghost-button">Ordenar por critério</button>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Posição</th>
+                <th>Nome</th>
+                <th>Cargo</th>
+                <th>Estado</th>
+                <th>Partido</th>
+                <th>Nota final</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="top-row">
+                <td>#1</td>
+                <td>Parlamentar X</td>
+                <td>Deputado</td>
+                <td>SP</td>
+                <td>PSX</td>
+                <td><span class="score-pill">8,7</span></td>
+              </tr>
+              <tr>
+                <td>#2</td>
+                <td>Parlamentar Y</td>
+                <td>Senador</td>
+                <td>RJ</td>
+                <td>ABC</td>
+                <td><span class="score-pill">8,4</span></td>
+              </tr>
+              <tr>
+                <td>#3</td>
+                <td>Parlamentar Z</td>
+                <td>Deputado</td>
+                <td>MG</td>
+                <td>XYZ</td>
+                <td><span class="score-pill">8,1</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="section-block">
+        <div class="section-header">
+          <h2>Critérios da avaliação</h2>
+        </div>
+
+        <div class="criteria-grid">
+          <article class="criterion-card">
+            <div class="criterion-icon">P</div>
+            <div class="criterion-content">
+              <h3>Presença</h3>
+              <p>Comparecimento em sessões e comissões.</p>
+            </div>
+            <div class="criterion-score">8,5</div>
+          </article>
+
+          <article class="criterion-card">
+            <div class="criterion-icon">L</div>
+            <div class="criterion-content">
+              <h3>Legislação</h3>
+              <p>Projetos e iniciativas apresentadas.</p>
+            </div>
+            <div class="criterion-score">8,2</div>
+          </article>
+
+          <article class="criterion-card">
+            <div class="criterion-icon">R</div>
+            <div class="criterion-content">
+              <h3>Relatoria</h3>
+              <p>Participação em relatorias relevantes.</p>
+            </div>
+            <div class="criterion-score">7,9</div>
+          </article>
+
+          <article class="criterion-card">
+            <div class="criterion-icon">V</div>
+            <div class="criterion-content">
+              <h3>Votações</h3>
+              <p>Frequência e posicionamento em pautas.</p>
+            </div>
+            <div class="criterion-score">8,6</div>
+          </article>
+
+          <article class="criterion-card">
+            <div class="criterion-icon">T</div>
+            <div class="criterion-content">
+              <h3>Transparência</h3>
+              <p>Prestação de contas e clareza pública.</p>
+            </div>
+            <div class="criterion-score">7,8</div>
+          </article>
+
+          <article class="criterion-card">
+            <div class="criterion-icon">A</div>
+            <div class="criterion-content">
+              <h3>Atendimento</h3>
+              <p>Resposta e comunicação com eleitores.</p>
+            </div>
+            <div class="criterion-score">8,0</div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section-block" id="metodologia">
+        <div class="methodology-box">
+          <h3>Como a nota é calculada?</h3>
+          <p>
+            A nota final é calculada por média ponderada, com pesos ajustáveis conforme
+            a prioridade do eleitor.
+          </p>
+
+          <ul class="methodology-list">
+            <li>Presença e assiduidade: 25%</li>
+            <li>Produção legislativa: 20%</li>
+            <li>Relatoria: 15%</li>
+            <li>Participação em votações: 15%</li>
+            <li>Transparência: 15%</li>
+            <li>Atendimento ao eleitor: 10%</li>
+          </ul>
+        </div>
+      </section>
+    </main>
+
+    <footer class="app-footer">
+      <div class="container footer-grid">
+        <div>
+          <h4>Fontes públicas</h4>
+          <p>Dados coletados de registros oficiais e sistemas públicos.</p>
+        </div>
+        <div>
+          <h4>Última atualização</h4>
+          <p>24 de outubro de 2026</p>
+        </div>
+        <div>
+          <h4>Transparência</h4>
+          <p>Política de dados e metodologia acessíveis em todas as telas.</p>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

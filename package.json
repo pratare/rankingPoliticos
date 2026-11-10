@@ -1,0 +1,13 @@
+{
+  "name": "bmad-first-project",
+  "private": true,
+  "scripts": {
+    "dev": "npm --prefix react-app run dev",
+    "build": "npm --prefix react-app run build",
+    "preview": "npm --prefix react-app run preview",
+    "backend:dev": "npm --prefix backend run start:dev",
+    "backend:build": "npm --prefix backend run build",
+    "backend:prisma:generate": "npm --prefix backend run prisma:generate",
+    "backend:prisma:migrate": "npm --prefix backend run prisma:migrate"
+  }
+}

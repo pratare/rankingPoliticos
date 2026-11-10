@@ -1,0 +1,110 @@
+{
+  "version": "1.0",
+  "project": "Ranking de parlamentares",
+  "scope": "MVP",
+  "description": "Estrutura mínima de dados para alimentar ranking, perfil do parlamentar, comparação e transparência metodológica.",
+  "entities": {
+    "parlamentares": {
+      "description": "Dados cadastrais e institucionais do parlamentar.",
+      "fields": [
+        { "name": "id_parlamentar", "type": "string", "required": true, "description": "Identificador único do parlamentar." },
+        { "name": "nome", "type": "string", "required": true, "description": "Nome completo do parlamentar." },
+        { "name": "cargo", "type": "string", "required": true, "enum": ["deputado", "senador"], "description": "Cargo atual do parlamentar." },
+        { "name": "partido", "type": "string", "required": true, "description": "Sigla do partido pelo qual atua." },
+        { "name": "uf", "type": "string", "required": true, "description": "Unidade federativa do parlamentar." },
+        { "name": "legislatura", "type": "integer", "required": true, "description": "Legislatura em exercício." },
+        { "name": "bancada", "type": "string", "required": false, "description": "Bancada ou coalizão institucional." },
+        { "name": "foto_url", "type": "string", "required": false, "description": "URL da imagem oficial ou pública do parlamentar." },
+        { "name": "perfil_url", "type": "string", "required": false, "description": "Link para o perfil oficial do parlamentar." },
+        { "name": "data_atualizacao", "type": "date", "required": true, "description": "Data da última atualização cadastral." }
+      ]
+    },
+    "criterios_avaliacao": {
+      "description": "Critérios que compõem a nota final.",
+      "fields": [
+        { "name": "id_criterio", "type": "string", "required": true, "description": "Identificador do critério." },
+        { "name": "nome", "type": "string", "required": true, "description": "Nome do critério, por exemplo: presença e assiduidade." },
+        "peso",
+        { "name": "peso", "type": "decimal", "required": true, "description": "Peso do critério na escala total, somando 100% no perfil escolhido." },
+        { "name": "descricao", "type": "string", "required": true, "description": "Descrição curta do que o critério mede." },
+        { "name": "tipo", "type": "string", "required": true, "enum": ["quantitativo", "qualitativo", "derivativo"], "description": "Tipo do critério." },
+        { "name": "fonte_principal", "type": "string", "required": true, "description": "Nome da fonte oficial que alimenta o critério." },
+        { "name": "periodicidade_atualizacao", "type": "string", "required": true, "description": "Frequência de atualização do dado." },
+        { "name": "meta_normatizacao", "type": "string", "required": true, "description": "Regra de normalização do critério para escala 0 a 10." }
+      ]
+    },
+    "metricas_parlamentar": {
+      "description": "Valores brutos ou calculados por parlamentar e critério.",
+      "fields": [
+        { "name": "id_metrica", "type": "string", "required": true, "description": "Identificador da métrica." },
+        { "name": "id_parlamentar", "type": "string", "required": true, "description": "Chave do parlamentar." },
+        { "name": "id_criterio", "type": "string", "required": true, "description": "Chave do critério." },
+        { "name": "valor_bruto", "type": "decimal", "required": false, "description": "Valor bruto extraído da fonte." },
+        { "name": "valor_normalizado", "type": "decimal", "required": true, "description": "Valor convertido para escala 0 a 10." },
+        { "name": "periodo_inicio", "type": "date", "required": true, "description": "Início do período de referência." },
+        { "name": "periodo_fim", "type": "date", "required": true, "description": "Fim do período de referência." },
+        { "name": "fonte_dado", "type": "string", "required": true, "description": "Fonte oficial específica do dado." },
+        { "name": "data_coleta", "type": "date", "required": true, "description": "Data em que o dado foi coletado." },
+        { "name": "status_dado", "type": "string", "required": true, "enum": ["validado", "ausente", "incompleto", "calculado"], "description": "Status do dado para transparência e UX." },
+        { "name": "observacao", "type": "string", "required": false, "description": "Observação sobre ausência, ajuste ou normalização." }
+      ]
+    },
+    "historico_notas": {
+      "description": "Histórico de avaliações por parlamentar e por período.",
+      "fields": [
+        { "name": "id_historico", "type": "string", "required": true },
+        { "name": "id_parlamentar", "type": "string", "required": true },
+        { "name": "ano", "type": "integer", "required": true, "description": "Ano da avaliação." },
+        { "name": "nota_final", "type": "decimal", "required": true, "description": "Nota final no período." },
+        { "name": "perfil", "type": "string", "required": true, "description": "Perfil de avaliação usado: equilibrado, institucional, legislativo, transparência." },
+        { "name": "data_atualizacao", "type": "date", "required": true, "description": "Data da atualização da nota histórica." }
+      ]
+    },
+    "fontes_dados": {
+      "description": "Catalogo de fontes públicas e suas metainformações.",
+      "fields": [
+        { "name": "id_fonte", "type": "string", "required": true },
+        { "name": "nome", "type": "string", "required": true, "description": "Nome da fonte oficial." },
+        { "name": "tipo", "type": "string", "required": true, "enum": ["legislativo", "transparencia", "governo", "registro_publico"], "description": "Categoria da fonte." },
+        { "name": "url", "type": "string", "required": true, "description": "URL da fonte oficial." },
+        { "name": "instituicao", "type": "string", "required": true, "description": "Órgão ou instituição pública responsável." },
+        { "name": "ultima_verificacao", "type": "date", "required": true, "description": "Data da última checagem da fonte." }
+      ]
+    },
+    "atualizacao_dados": {
+      "description": "Registro da última atualização e do status dos dados do sistema.",
+      "fields": [
+        { "name": "id_atualizacao", "type": "string", "required": true },
+        { "name": "tipo_dado", "type": "string", "required": true, "description": "Tipo do dado atualizado: cadastral, legislativo, presença, transparência." },
+        { "name": "data_execucao", "type": "date", "required": true, "description": "Data da atualização do dado." },
+        { "name": "status", "type": "string", "required": true, "enum": ["ok", "alerta", "falha", "parcial"], "description": "Status da execução da atualização." },
+        { "name": "observacao", "type": "string", "required": false, "description": "Detalhes de falha, limitação ou alerta de qualidade." }
+      ]
+    },
+    "ranking_geral": {
+      "description": "Snapshot do ranking principal para renderização rápida na homepage.",
+      "fields": [
+        { "name": "id_snapshot", "type": "string", "required": true },
+        { "name": "id_parlamentar", "type": "string", "required": true },
+        { "name": "posicao", "type": "integer", "required": true },
+        { "name": "nota_final", "type": "decimal", "required": true },
+        { "name": "perfil_aplicado", "type": "string", "required": true },
+        { "name": "data_snapshot", "type": "date", "required": true },
+        { "name": "status_valido", "type": "boolean", "required": true, "description": "Indica se o snapshot está coeso e validado." }
+      ]
+    }
+  },
+  "relationships": {
+    "parlamentares.id_parlamentar": ["metricas_parlamentar.id_parlamentar", "historico_notas.id_parlamentar", "ranking_geral.id_parlamentar"],
+    "criterios_avaliacao.id_criterio": ["metricas_parlamentar.id_criterio"],
+    "fontes_dados.id_fonte": ["metricas_parlamentar.fonte_dado", "criterios_avaliacao.fonte_principal"]
+  },
+  "business_rules": [
+    "Cada critério deve ter peso total correspondente ao perfil selecionado, somando 100%.",
+    "Cada valor exibido deve apontar para uma fonte oficial e data de coleta.",
+    "Dados ausentes devem ser marcados explicitamente no status_dado e na interface.",
+    "A nota final deve ser calculada por média ponderada usando o perfil ativo.",
+    "Todo dado derivado deve ser identificado como calculado, não como dado bruto.",
+    "O ranking principal deve ser ordenado por nota_final em ordem decrescente."
+  ]
+}

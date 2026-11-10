@@ -1,0 +1,443 @@
+{
+  "parlamentares": [
+    {
+      "id_parlamentar": "dep_001",
+      "nome": "Ana Souza",
+      "cargo": "deputado",
+      "partido": "PSB",
+      "uf": "SP",
+      "legislatura": 57,
+      "bancada": "Bancada do Estado",
+      "foto_url": "https://example.com/fotos/ana-souza.jpg",
+      "perfil_url": "https://example.com/parlamentar/ana-souza",
+      "data_atualizacao": "2026-10-15"
+    },
+    {
+      "id_parlamentar": "dep_002",
+      "nome": "Carlos Mendes",
+      "cargo": "deputado",
+      "partido": "PL",
+      "uf": "RJ",
+      "legislatura": 57,
+      "bancada": "Bancada do Estado",
+      "foto_url": "https://example.com/fotos/carlos-mendes.jpg",
+      "perfil_url": "https://example.com/parlamentar/carlos-mendes",
+      "data_atualizacao": "2026-10-15"
+    },
+    {
+      "id_parlamentar": "sen_001",
+      "nome": "Marina Costa",
+      "cargo": "senador",
+      "partido": "PSD",
+      "uf": "SP",
+      "legislatura": 57,
+      "bancada": "Bancada Federal",
+      "foto_url": "https://example.com/fotos/marina-costa.jpg",
+      "perfil_url": "https://example.com/parlamentar/marina-costa",
+      "data_atualizacao": "2026-10-15"
+    }
+  ],
+  "criterios_avaliacao": [
+    {
+      "id_criterio": "crit_presenca",
+      "nome": "Presença e assiduidade",
+      "peso": 25,
+      "descricao": "Mede frequência em sessões, comissões e votações relevantes.",
+      "tipo": "quantitativo",
+      "fonte_principal": "Câmara dos Deputados / Senado Federal",
+      "periodicidade_atualizacao": "mensal",
+      "meta_normatizacao": "percentual de presença sobre total esperado"
+    },
+    {
+      "id_criterio": "crit_producao",
+      "nome": "Produção legislativa",
+      "peso": 20,
+      "descricao": "Avalia quantidade e relevância de projetos e proposições apresentadas.",
+      "tipo": "quantitativo",
+      "fonte_principal": "Câmara dos Deputados / Senado Federal",
+      "periodicidade_atualizacao": "mensal",
+      "meta_normatizacao": "normalização por quantidade relativa ao total da categoria"
+    },
+    {
+      "id_criterio": "crit_relatoria",
+      "nome": "Relatoria",
+      "peso": 15,
+      "descricao": "Avalia participação em relatorias e acompanhamento de temas relevantes.",
+      "tipo": "quantitativo",
+      "fonte_principal": "Câmara dos Deputados / Senado Federal",
+      "periodicidade_atualizacao": "mensal",
+      "meta_normatizacao": "escala proporcional ao número de relatorias"
+    },
+    {
+      "id_criterio": "crit_votacoes",
+      "nome": "Participação em votações",
+      "peso": 15,
+      "descricao": "Mede comparecimento e envolvimento em votações relevantes.",
+      "tipo": "quantitativo",
+      "fonte_principal": "Registros de votações e plenário",
+      "periodicidade_atualizacao": "mensal",
+      "meta_normatizacao": "percentual de presença em votações"
+    },
+    {
+      "id_criterio": "crit_transparencia",
+      "nome": "Transparência e prestação de contas",
+      "peso": 15,
+      "descricao": "Avalia disponibilidade, clareza e regularidade de informações públicas.",
+      "tipo": "quantitativo",
+      "fonte_principal": "Portal da Transparência",
+      "periodicidade_atualizacao": "mensal",
+      "meta_normatizacao": "escala de disponibilidade e consistência institucional"
+    },
+    {
+      "id_criterio": "crit_atendimento",
+      "nome": "Atendimento ao eleitor",
+      "peso": 10,
+      "descricao": "Considera presença em eventos, reuniões e atuação regional.",
+      "tipo": "derivativo",
+      "fonte_principal": "Canais oficiais e registros públicos",
+      "periodicidade_atualizacao": "mensal",
+      "meta_normatizacao": "escalonamento proporcional à frequência de ações públicas"
+    }
+  ],
+  "metricas_parlamentar": [
+    {
+      "id_metrica": "met_dep_001_presenca",
+      "id_parlamentar": "dep_001",
+      "id_criterio": "crit_presenca",
+      "valor_bruto": 92,
+      "valor_normalizado": 8.7,
+      "periodo_inicio": "2026-01-01",
+      "periodo_fim": "2026-10-15",
+      "fonte_dado": "Câmara dos Deputados",
+      "data_coleta": "2026-10-15",
+      "status_dado": "validado",
+      "observacao": "Participação em sessões e comissões dentro da média da casa."
+    },
+    {
+      "id_metrica": "met_dep_001_producao",
+      "id_parlamentar": "dep_001",
+      "id_criterio": "crit_producao",
+      "valor_bruto": 18,
+      "valor_normalizado": 7.9,
+      "periodo_inicio": "2026-01-01",
+      "periodo_fim": "2026-10-15",
+      "fonte_dado": "Câmara dos Deputados",
+      "data_coleta": "2026-10-15",
+      "status_dado": "validado",
+      "observacao": "Quantidade de projetos e proposições apresentadas no período."
+    },
+    {
+      "id_metrica": "met_dep_001_relatoria",
+      "id_parlamentar": "dep_001",
+      "id_criterio": "crit_relatoria",
+      "valor_bruto": 4,
+      "valor_normalizado": 7.5,
+      "periodo_inicio": "2026-01-01",
+      "periodo_fim": "2026-10-15",
+      "fonte_dado": "Câmara dos Deputados",
+      "data_coleta": "2026-10-15",
+      "status_dado": "validado",
+      "observacao": "Relatorias assumidas em comissões."
+    },
+    {
+      "id_metrica": "met_dep_001_votacoes",
+      "id_parlamentar": "dep_001",
+      "id_criterio": "crit_votacoes",
+      "valor_bruto": 88,
+      "valor_normalizado": 8.2,
+      "periodo_inicio": "2026-01-01",
+      "periodo_fim": "2026-10-15",
+      "fonte_dado": "Registros de votações",
+      "data_coleta": "2026-10-15",
+      "status_dado": "validado",
+      "observacao": "Presença em votações relevantes e em plenário."
+    },
+    {
+      "id_metrica": "met_dep_001_transparencia",
+      "id_parlamentar": "dep_001",
+      "id_criterio": "crit_transparencia",
+      "valor_bruto": 85,
+      "valor_normalizado": 8.5,
+      "periodo_inicio": "2026-01-01",
+      "periodo_fim": "2026-10-15",
+      "fonte_dado": "Portal da Transparência",
+      "data_coleta": "2026-10-15",
+      "status_dado": "validado",
+      "observacao": "Disponibilidade de informações e regularidade de divulgação."
+    },
+    {
+      "id_metrica": "met_dep_001_atendimento",
+      "id_parlamentar": "dep_001",
+      "id_criterio": "crit_atendimento",
+      "valor_bruto": 12,
+      "valor_normalizado": 7.2,
+      "periodo_inicio": "2026-01-01",
+      "periodo_fim": "2026-10-15",
+      "fonte_dado": "Canais oficiais e registros públicos",
+      "data_coleta": "2026-10-15",
+      "status_dado": "validado",
+      "observacao": "Atividade pública e presença em eventos locais e regionais."
+    },
+    {
+      "id_metrica": "met_dep_002_presenca",
+      "id_parlamentar": "dep_002",
+      "id_criterio": "crit_presenca",
+      "valor_bruto": 78,
+      "valor_normalizado": 7.4,
+      "periodo_inicio": "2026-01-01",
+      "periodo_fim": "2026-10-15",
+      "fonte_dado": "Câmara dos Deputados",
+      "data_coleta": "2026-10-15",
+      "status_dado": "validado",
+      "observacao": "Presença regular, porém com menor frequência que o primeiro colocado."
+    },
+    {
+      "id_metrica": "met_dep_002_producao",
+      "id_parlamentar": "dep_002",
+      "id_criterio": "crit_producao",
+      "valor_bruto": 24,
+      "valor_normalizado": 8.6,
+      "periodo_inicio": "2026-01-01",
+      "periodo_fim": "2026-10-15",
+      "fonte_dado": "Câmara dos Deputados",
+      "data_coleta": "2026-10-15",
+      "status_dado": "validado",
+      "observacao": "Produção legislativa acima da média nacional da casa."
+    },
+    {
+      "id_metrica": "met_dep_002_relatoria",
+      "id_parlamentar": "dep_002",
+      "id_criterio": "crit_relatoria",
+      "valor_bruto": 6,
+      "valor_normalizado": 8.1,
+      "periodo_inicio": "2026-01-01",
+      "periodo_fim": "2026-10-15",
+      "fonte_dado": "Câmara dos Deputados",
+      "data_coleta": "2026-10-15",
+      "status_dado": "validado",
+      "observacao": "Relatorias com participação significativa em comissões."
+    },
+    {
+      "id_metrica": "met_dep_002_votacoes",
+      "id_parlamentar": "dep_002",
+      "id_criterio": "crit_votacoes",
+      "valor_bruto": 82,
+      "valor_normalizado": 7.7,
+      "periodo_inicio": "2026-01-01",
+      "periodo_fim": "2026-10-15",
+      "fonte_dado": "Registros de votações",
+      "data_coleta": "2026-10-15",
+      "status_dado": "validado",
+      "observacao": "Participação relevante em pautas-chave."
+    },
+    {
+      "id_metrica": "met_dep_002_transparencia",
+      "id_parlamentar": "dep_002",
+      "id_criterio": "crit_transparencia",
+      "valor_bruto": 72,
+      "valor_normalizado": 7.1,
+      "periodo_inicio": "2026-01-01",
+      "periodo_fim": "2026-10-15",
+      "fonte_dado": "Portal da Transparência",
+      "data_coleta": "2026-10-15",
+      "status_dado": "validado",
+      "observacao": "Informações públicas disponíveis, porém com menos regularidade de atualização."
+    },
+    {
+      "id_metrica": "met_dep_002_atendimento",
+      "id_parlamentar": "dep_002",
+      "id_criterio": "crit_atendimento",
+      "valor_bruto": 14,
+      "valor_normalizado": 7.8,
+      "periodo_inicio": "2026-01-01",
+      "periodo_fim": "2026-10-15",
+      "fonte_dado": "Canais oficiais e registros públicos",
+      "data_coleta": "2026-10-15",
+      "status_dado": "validado",
+      "observacao": "Atuação pública e abertura com a base eleitoral."
+    },
+    {
+      "id_metrica": "met_sen_001_presenca",
+      "id_parlamentar": "sen_001",
+      "id_criterio": "crit_presenca",
+      "valor_bruto": 86,
+      "valor_normalizado": 8.1,
+      "periodo_inicio": "2026-01-01",
+      "periodo_fim": "2026-10-15",
+      "fonte_dado": "Senado Federal",
+      "data_coleta": "2026-10-15",
+      "status_dado": "validado",
+      "observacao": "Boa presença e assiduidade institucional."
+    },
+    {
+      "id_metrica": "met_sen_001_producao",
+      "id_parlamentar": "sen_001",
+      "id_criterio": "crit_producao",
+      "valor_bruto": 16,
+      "valor_normalizado": 7.4,
+      "periodo_inicio": "2026-01-01",
+      "periodo_fim": "2026-10-15",
+      "fonte_dado": "Senado Federal",
+      "data_coleta": "2026-10-15",
+      "status_dado": "validado",
+      "observacao": "Produção legislativa satisfatória com volume moderado."
+    },
+    {
+      "id_metrica": "met_sen_001_relatoria",
+      "id_parlamentar": "sen_001",
+      "id_criterio": "crit_relatoria",
+      "valor_bruto": 5,
+      "valor_normalizado": 7.9,
+      "periodo_inicio": "2026-01-01",
+      "periodo_fim": "2026-10-15",
+      "fonte_dado": "Senado Federal",
+      "data_coleta": "2026-10-15",
+      "status_dado": "validado",
+      "observacao": "Relatorias em temas relevantes."
+    },
+    {
+      "id_metrica": "met_sen_001_votacoes",
+      "id_parlamentar": "sen_001",
+      "id_criterio": "crit_votacoes",
+      "valor_bruto": 90,
+      "valor_normalizado": 8.5,
+      "periodo_inicio": "2026-01-01",
+      "periodo_fim": "2026-10-15",
+      "fonte_dado": "Registros de votações",
+      "data_coleta": "2026-10-15",
+      "status_dado": "validado",
+      "observacao": "Alta presença em votações de grande relevância."
+    },
+    {
+      "id_metrica": "met_sen_001_transparencia",
+      "id_parlamentar": "sen_001",
+      "id_criterio": "crit_transparencia",
+      "valor_bruto": 91,
+      "valor_normalizado": 8.8,
+      "periodo_inicio": "2026-01-01",
+      "periodo_fim": "2026-10-15",
+      "fonte_dado": "Portal da Transparência",
+      "data_coleta": "2026-10-15",
+      "status_dado": "validado",
+      "observacao": "Ótima disponibilidade e clareza institucional."
+    },
+    {
+      "id_metrica": "met_sen_001_atendimento",
+      "id_parlamentar": "sen_001",
+      "id_criterio": "crit_atendimento",
+      "valor_bruto": 11,
+      "valor_normalizado": 7.0,
+      "periodo_inicio": "2026-01-01",
+      "periodo_fim": "2026-10-15",
+      "fonte_dado": "Canais oficiais e registros públicos",
+      "data_coleta": "2026-10-15",
+      "status_dado": "validado",
+      "observacao": "Atuação regional e eventos públicos moderados."
+    }
+  ],
+  "historico_notas": [
+    {
+      "id_historico": "hist_dep_001_2026",
+      "id_parlamentar": "dep_001",
+      "ano": 2026,
+      "nota_final": 8.35,
+      "perfil": "equilibrado",
+      "data_atualizacao": "2026-10-15"
+    },
+    {
+      "id_historico": "hist_dep_002_2026",
+      "id_parlamentar": "dep_002",
+      "ano": 2026,
+      "nota_final": 7.82,
+      "perfil": "equilibrado",
+      "data_atualizacao": "2026-10-15"
+    },
+    {
+      "id_historico": "hist_sen_001_2026",
+      "id_parlamentar": "sen_001",
+      "ano": 2026,
+      "nota_final": 8.12,
+      "perfil": "equilibrado",
+      "data_atualizacao": "2026-10-15"
+    }
+  ],
+  "fontes_dados": [
+    {
+      "id_fonte": "fonte_camara",
+      "nome": "Câmara dos Deputados",
+      "tipo": "legislativo",
+      "url": "https://www.camara.leg.br/",
+      "instituicao": "Câmara dos Deputados",
+      "ultima_verificacao": "2026-10-15"
+    },
+    {
+      "id_fonte": "fonte_senado",
+      "nome": "Senado Federal",
+      "tipo": "legislativo",
+      "url": "https://www12.senado.leg.br/",
+      "instituicao": "Senado Federal",
+      "ultima_verificacao": "2026-10-15"
+    },
+    {
+      "id_fonte": "fonte_portal_transparencia",
+      "nome": "Portal da Transparência",
+      "tipo": "transparencia",
+      "url": "https://www.portaldatransparencia.gov.br/",
+      "instituicao": "Governo Federal",
+      "ultima_verificacao": "2026-10-15"
+    },
+    {
+      "id_fonte": "fonte_votacoes",
+      "nome": "Registros de votações e plenário",
+      "tipo": "registro_publico",
+      "url": "https://www.camara.leg.br/",
+      "instituicao": "Câmara dos Deputados / Senado Federal",
+      "ultima_verificacao": "2026-10-15"
+    }
+  ],
+  "atualizacao_dados": [
+    {
+      "id_atualizacao": "upd_2026_10",
+      "tipo_dado": "presenca",
+      "data_execucao": "2026-10-15",
+      "status": "ok",
+      "observacao": "Base processada com sucesso."
+    },
+    {
+      "id_atualizacao": "upd_2026_10_legislativo",
+      "tipo_dado": "legislativo",
+      "data_execucao": "2026-10-15",
+      "status": "ok",
+      "observacao": "Projetos e proposições atualizados."
+    }
+  ],
+  "ranking_geral": [
+    {
+      "id_snapshot": "rank_2026_10_01",
+      "id_parlamentar": "dep_001",
+      "posicao": 1,
+      "nota_final": 8.35,
+      "perfil_aplicado": "equilibrado",
+      "data_snapshot": "2026-10-15",
+      "status_valido": true
+    },
+    {
+      "id_snapshot": "rank_2026_10_02",
+      "id_parlamentar": "sen_001",
+      "posicao": 2,
+      "nota_final": 8.12,
+      "perfil_aplicado": "equilibrado",
+      "data_snapshot": "2026-10-15",
+      "status_valido": true
+    },
+    {
+      "id_snapshot": "rank_2026_10_03",
+      "id_parlamentar": "dep_002",
+      "posicao": 3,
+      "nota_final": 7.82,
+      "perfil_aplicado": "equilibrado",
+      "data_snapshot": "2026-10-15",
+      "status_valido": true
+    }
+  ]
+}

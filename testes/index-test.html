@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ranking Parlamentar - Teste</title>
+    <style>
+      :root {
+        --bg-base: #f5f7fa;
+        --surface: #ffffff;
+        --surface-alt: #eef2f7;
+        --text-primary: #14213d;
+        --text-secondary: #4b5563;
+        --border: #d9e2ec;
+        --primary: #1d4ed8;
+        --success: #16a34a;
+        --warning: #f59e0b;
+        --radius-sm: 8px;
+        --radius-md: 12px;
+        --radius-lg: 16px;
+        --shadow-sm: 0 1px 2px rgba(20,33,61,0.06);
+        --shadow-md: 0 6px 18px rgba(20,33,61,0.12);
+      }
+
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        font-family: Inter, Segoe UI, Arial, sans-serif;
+        background: var(--bg-base);
+        color: var(--text-primary);
+      }
+      .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+      .app-header { background: var(--surface); border-bottom: 1px solid var(--border); }
+      .nav-bar {
+        display: flex; justify-content: space-between; align-items: center; padding: 16px 0;
+      }
+      .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; }
+      .brand-mark {
+        width: 32px; height: 32px; border-radius: 8px; background: var(--primary);
+        display: inline-flex; align-items: center; justify-content: center; color: white;
+      }
+      .nav-links { display: flex; gap: 20px; }
+      .nav-links a { color: var(--text-secondary); text-decoration: none; }
+      .menu-button, .primary-button, .secondary-button, .ghost-button {
+        border-radius: 10px; font-weight: 600; cursor: pointer;
+      }
+      .menu-button {
+        background: var(--surface); border: 1px solid var(--border); padding: 10px 14px; color: var(--text-primary);
+      }
+      .hero {
+        background: linear-gradient(180deg, #f8fbff 0%, var(--bg-base) 100%);
+        padding: 64px 0;
+      }
+      .hero-inner {
+        display: grid; grid-template-columns: 1.5fr 0.8fr; gap: 32px; align-items: center;
+      }
+      .eyebrow { color: var(--primary); font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+      h1 { margin: 12px 0 16px; font-size: clamp(2rem, 3vw, 3.2rem); }
+      .hero-copy p { color: var(--text-secondary); margin: 0; }
+      .hero-actions { display: flex; gap: 16px; margin-top: 24px; }
+      .primary-button, .secondary-button {
+        padding: 12px 20px; border: none;
+      }
+      .primary-button { background: var(--primary); color: white; }
+      .secondary-button { background: transparent; border: 1px solid var(--border); color: var(--text-primary); }
+      .hero-card {
+        background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg);
+        padding: 28px 24px; text-align: center; box-shadow: var(--shadow-md);
+      }
+      .score-badge {
+        width: 120px; height: 120px; border-radius: 50%; margin: 0 auto;
+        display: flex; align-items: center; justify-content: center;
+        background: rgba(22,163,74,.12); color: var(--success); font-size: 2.5rem; font-weight: 700;
+      }
+      .filters-panel {
+        max-width: 1200px; margin: -12px auto 0; background: var(--surface); border: 1px solid var(--border);
+        border-radius: var(--radius-md); box-shadow: var(--shadow-sm); display: flex; flex-wrap: wrap; gap: 16px; padding: 24px;
+      }
+      .filter-field { display: flex; flex-direction: column; gap: 8px; min-width: 180px; flex: 1; }
+      .filter-field.wide { flex: 2; }
+      .filter-field label { color: var(--text-secondary); font-size: 0.8rem; font-weight: 600; }
+      .filter-field select, .filter-field input {
+        height: 44px; border: 1px solid var(--border); border-radius: 10px; background: var(--surface-alt); padding: 0 12px; color: var(--text-primary);
+      }
+      .compact { align-self: end; }
+      .section-block { max-width: 1200px; margin: 32px auto 0; padding: 0 24px; }
+      .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+      .section-header h2 { margin: 0; }
+      .ghost-button { background: transparent; border: 1px solid var(--border); padding: 10px 16px; color: var(--text-primary); }
+      .table-wrap { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-md); overflow-x: auto; }
+      table { width: 100%; border-collapse: collapse; min-width: 720px; }
+      th, td { padding: 16px 20px; text-align: left; border-bottom: 1px solid var(--border); }
+      th { background: var(--surface-alt); color: var(--text-secondary); text-transform: uppercase; font-size: .78rem; }
+      .top-row { background: rgba(29,78,216,.04); }
+      .score-pill {
+        display: inline-flex; min-width: 52px; justify-content: center; align-items: center; padding: 6px 10px; border-radius: 999px; background: rgba(22,163,74,.12); color: var(--success); font-weight: 700;
+      }
+      .criteria-grid { display: grid; grid-template-columns: repeat(3, minmax(220px, 1fr)); gap: 20px; }
+      .criterion-card {
+        background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-md); box-shadow: var(--shadow-sm); padding: 18px; display: flex; align-items: center; gap: 16px;
+      }
+      .criterion-icon {
+        width: 42px; height: 42px; border-radius: 12px; background: rgba(29,78,216,.12); color: var(--primary); display: flex; align-items: center; justify-content: center; font-weight: 700;
+      }
+      .criterion-content h3 { margin: 0 0 6px; }
+      .criterion-content p { margin: 0; color: var(--text-secondary); font-size: 0.85rem; }
+      .criterion-score { margin-left: auto; font-weight: 700; color: var(--success); }
+      .methodology-box { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 24px; }
+      .methodology-list { line-height: 1.8; color: var(--text-secondary); }
+      .app-footer { margin-top: 48px; background: var(--text-primary); color: white; padding: 32px 24px; }
+      .footer-grid { display: grid; grid-template-columns: repeat(3, minmax(220px, 1fr)); gap: 24px; }
+      .footer-grid p { color: rgba(255,255,255,.8); }
+      @media (max-width: 900px) {
+        .hero-inner, .criteria-grid, .footer-grid { grid-template-columns: 1fr; }
+        .nav-links { display: none; }
+      }
+      @media (max-width: 640px) {
+        .filters-panel { flex-direction: column; }
+        .filter-field, .filter-field.wide { flex: 1 1 100%; }
+        .hero-actions { flex-direction: column; }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="app-header">
+      <div class="container nav-bar">
+        <div class="brand">
+          <span class="brand-mark">R</span>
+          <span>Ranking Parlamentar</span>
+        </div>
+        <nav class="nav-links">
+          <a href="#ranking">Ranking</a>
+          <a href="#metodologia">Metodologia</a>
+          <a href="#comparar">Comparar</a>
+        </nav>
+        <button class="menu-button">Menu</button>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="container hero-inner">
+          <div class="hero-copy">
+            <span class="eyebrow">Transparência pública</span>
+            <h1>Ranking objetivo de deputados e senadores</h1>
+            <p>Avaliação baseada em critérios públicos, comparáveis e explicáveis.</p>
+            <div class="hero-actions">
+              <button class="primary-button">Ver ranking</button>
+              <button class="secondary-button">Como a nota é calculada?</button>
+            </div>
+          </div>
+          <div class="hero-card">
+            <div class="score-badge">8,7</div>
+            <p>Nota média da base atual</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="container">
+        <div class="filters-panel">
+          <div class="filter-field">
+            <label for="cargo">Cargo</label>
+            <select id="cargo">
+              <option>Todos</option>
+              <option>Deputado</option>
+              <option>Senador</option>
+            </select>
+          </div>
+          <div class="filter-field">
+            <label for="estado">Estado</label>
+            <select id="estado">
+              <option>Todos</option>
+              <option>SP</option>
+              <option>RJ</option>
+              <option>MG</option>
+            </select>
+          </div>
+          <div class="filter-field">
+            <label for="partido">Partido</label>
+            <select id="partido">
+              <option>Todos</option>
+              <option>PSX</option>
+              <option>ABC</option>
+              <option>XYZ</option>
+            </select>
+          </div>
+          <div class="filter-field wide">
+            <label for="buscar">Buscar parlamentar</label>
+            <input id="buscar" type="text" placeholder="Nome do parlamentar" />
+          </div>
+          <button class="primary-button compact">Aplicar</button>
+        </div>
+      </section>
+
+      <section class="section-block" id="ranking">
+        <div class="section-header">
+          <h2>Ranking geral</h2>
+          <button class="ghost-button">Ordenar por critério</button>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Posição</th>
+                <th>Nome</th>
+                <th>Cargo</th>
+                <th>Estado</th>
+                <th>Partido</th>
+                <th>Nota final</th>
+              </tr>
+            </thead>
+            <tbody id="ranking-body"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="section-block">
+        <div class="section-header"><h2>Critérios da avaliação</h2></div>
+        <div class="criteria-grid" id="criteria-grid"></div>
+      </section>
+
+      <section class="section-block" id="metodologia">
+        <div class="methodology-box">
+          <h3>Como a nota é calculada?</h3>
+          <p>A nota final é calculada por média ponderada, com pesos ajustáveis conforme a prioridade do eleitor.</p>
+          <ul class="methodology-list" id="methodology-list"></ul>
+        </div>
+      </section>
+    </main>
+
+    <footer class="app-footer">
+      <div class="container footer-grid">
+        <div>
+          <h4>Fontes públicas</h4>
+          <p>Dados coletados de registros oficiais e sistemas públicos.</p>
+        </div>
+        <div>
+          <h4>Última atualização</h4>
+          <p>24 de outubro de 2026</p>
+        </div>
+        <div>
+          <h4>Transparência</h4>
+          <p>Política de dados e metodologia acessíveis em todas as telas.</p>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      const rows = [
+        { position: 1, name: 'Parlamentar X', role: 'Deputado', state: 'SP', party: 'PSX', score: '8,7' },
+        { position: 2, name: 'Parlamentar Y', role: 'Senador', state: 'RJ', party: 'ABC', score: '8,4' },
+        { position: 3, name: 'Parlamentar Z', role: 'Deputado', state: 'MG', party: 'XYZ', score: '8,1' }
+      ];
+
+      const criteria = [
+        { title: 'Presença', description: 'Comparecimento em sessões e comissões.', score: '8,5' },
+        { title: 'Legislação', description: 'Projetos e iniciativas apresentadas.', score: '8,2' },
+        { title: 'Relatoria', description: 'Participação em relatorias relevantes.', score: '7,9' },
+        { title: 'Votações', description: 'Frequência e posicionamento em pautas.', score: '8,6' },
+        { title: 'Transparência', description: 'Prestação de contas e clareza pública.', score: '7,8' },
+        { title: 'Atendimento', description: 'Resposta e comunicação com eleitores.', score: '8,0' }
+      ];
+
+      const methodology = [
+        'Presença e assiduidade: 25%',
+        'Produção legislativa: 20%',
+        'Relatoria: 15%',
+        'Participação em votações: 15%',
+        'Transparência: 15%',
+        'Atendimento ao eleitor: 10%'
+      ];
+
+      const rankingBody = document.getElementById('ranking-body');
+      rows.forEach((row) => {
+        const tr = document.createElement('tr');
+        tr.className = row.position === 1 ? 'top-row' : '';
+        tr.innerHTML = `
+          <td>#${row.position}</td>
+          <td>${row.name}</td>
+          <td>${row.role}</td>
+          <td>${row.state}</td>
+          <td>${row.party}</td>
+          <td><span class="score-pill">${row.score}</span></td>
+        `;
+        rankingBody.appendChild(tr);
+      });
+
+      const criteriaGrid = document.getElementById('criteria-grid');
+      criteria.forEach((item) => {
+        const card = document.createElement('article');
+        card.className = 'criterion-card';
+        card.innerHTML = `
+          <div class="criterion-icon">${item.title.charAt(0)}</div>
+          <div class="criterion-content">
+            <h3>${item.title}</h3>
+            <p>${item.description}</p>
+          </div>
+          <div class="criterion-score">${item.score}</div>
+        `;
+        criteriaGrid.appendChild(card);
+      });
+
+      const methodologyList = document.getElementById('methodology-list');
+      methodology.forEach((item) => {
+        const li = document.createElement('li');
+        li.textContent = item;
+        methodologyList.appendChild(li);
+      });
+    </script>
+  </body>
+</html>
